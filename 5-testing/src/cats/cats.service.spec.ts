@@ -19,10 +19,18 @@ describe('CatsService', () => {
 
   const mockCatModel = {
     create: jest.fn((dto) => ({ catId: Date.now(), ...dto })),
-    findOne: jest.fn((query) => ({
-      catId: query.where.catId,
-      ...oneCat,
-    })),
+    findOne: jest
+      .fn()
+      .mockImplementationOnce(async (query) => ({
+        catId: query.where.catId,
+        ...oneCat,
+      }))
+      .mockImplementationOnce(async (query) => ({
+        catId: query.where.catId,
+        ...oneCat,
+        destroy: jest.fn(),
+      }))
+      .mockImplementation(jest.fn()),
     findAll: jest.fn((query) => catsArray),
     update: jest.fn((update, query) => ({
       catId: query.where.catId,
@@ -68,9 +76,9 @@ describe('CatsService', () => {
       expect(catsService.findOne).toBeDefined();
     });
 
-    it('should return one user', () => {
-      const cat = catsService.findOne({ catId: 3 });
-      expect(catsService.findOne({ catId: 3 })).toEqual({
+    it('should return one user', async () => {
+      const cat = await catsService.findOne({ catId: 3 });
+      expect(cat).toEqual({
         catId: 3,
         ...oneCat,
       });
@@ -102,6 +110,24 @@ describe('CatsService', () => {
         ...oneCat,
       });
       expect(mockCatModel.update).toHaveBeenCalled();
+    });
+  });
+
+  describe('remove', () => {
+    it('should be defined', () => {
+      expect(catsService.remove).toBeDefined();
+    });
+
+    it('should remove one cat', async () => {
+      const res = await catsService.remove({ catId: 3 });
+      expect(res).toBe(undefined);
+    });
+
+    it('should throw error when removing non existing cat', () => {
+      expect.assertions(1);
+      return catsService.remove({ catId: 4 }).catch((err) => {
+        expect(err instanceof Error).toBe(true);
+      });
     });
   });
 });
