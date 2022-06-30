@@ -6,6 +6,7 @@ import {
   AutoIncrement,
   ForeignKey,
   BelongsTo,
+  AllowNull,
 } from 'sequelize-typescript';
 import { User } from '../../users/models/user.model';
 
@@ -16,9 +17,11 @@ export class Cat extends Model {
   @Column
   catId: number;
 
+  @AllowNull(false)
   @Column
   name: string;
 
+  @AllowNull(false)
   @Column
   breed: string;
 
