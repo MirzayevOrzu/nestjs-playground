@@ -7,7 +7,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(@Res() res: Response): string {
+  getHello(@Res({ passthrough: true }) res: Response): string {
     Logger.log(`Message from middleware: ${res.locals.message}`);
     return this.appService.getHello();
   }
