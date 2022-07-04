@@ -1,5 +1,6 @@
-import { Controller, Get, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ForbiddenException } from './forbidden.exception';
 
 @Controller()
 export class AppController {
@@ -12,6 +13,6 @@ export class AppController {
 
   @Get('example')
   getExample() {
-    throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    throw new ForbiddenException();
   }
 }
