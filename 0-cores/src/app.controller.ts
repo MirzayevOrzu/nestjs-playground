@@ -1,6 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
+import { BadRequestException, Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ForbiddenException } from './forbidden.exception';
 
 @Controller()
 export class AppController {
@@ -13,6 +12,6 @@ export class AppController {
 
   @Get('example')
   getExample() {
-    throw new ForbiddenException();
+    throw new BadRequestException();
   }
 }
