@@ -1,1 +1,1 @@
-# EXAMPLE 5 | Nest.js Series
+# EXAMPLE 6 | Nest.js Series
