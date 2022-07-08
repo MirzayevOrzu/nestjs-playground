@@ -1,0 +1,47 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Objective {
+  """Identifier of objective"""
+  id: Int!
+
+  """Name of objective"""
+  name: String!
+
+  """Short description of objective"""
+  description: String!
+  priority: AllowedPriorities!
+}
+
+enum AllowedPriorities {
+  HIGH
+  MODERATE
+  LOW
+}
+
+type Query {
+  objectives: [Objective!]!
+  objective(id: Int!): Objective!
+}
+
+type Mutation {
+  createObjective(createObjectiveInput: CreateObjectiveInput!): Objective!
+  updateObjective(updateObjectiveInput: UpdateObjectiveInput!): Objective!
+  removeObjective(id: Int!): Objective!
+}
+
+input CreateObjectiveInput {
+  name: String!
+  description: String!
+  priority: AllowedPriorities!
+}
+
+input UpdateObjectiveInput {
+  name: String
+  description: String
+  priority: AllowedPriorities
+
+  """Identifier of objective"""
+  id: Int!
+}
