@@ -46,4 +46,13 @@ export class UsersService {
       },
     });
   }
+
+  remove(id: number) {
+    return this.userModel.destroy({
+      where: {
+        userId: id,
+        role: 'user',
+      },
+    });
+  }
 }
