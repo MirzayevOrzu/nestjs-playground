@@ -26,7 +26,7 @@ export class UsersService {
   async findOne(query: FindUserDto): Promise<User> {
     const user = await this.knex.table('users').where({ ...query }).first();
 
-    if (!user.length) {
+    if (!user) {
       throw new NotFoundException('User with data sent not found');
     }
 
